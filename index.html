@@ -184,9 +184,7 @@ let yPosition = 60; // Initial vertical position for items
 
 if (item1 > 0 && quantity1 > 0) {
   const item1Total = item1 * quantity1;
-  doc.text('Grilled Chicken', 14, 108); 
-doc.text(quantity1, 120, 108); 
-doc.text(item1Total, 140, 108);;
+  doc.text(`Grilled Chicken - $${item1} x ${quantity1} = $${item1Total}`, 14, 108);
 }
 
 if (item2 > 0 && quantity2 > 0) {
