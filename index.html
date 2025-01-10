@@ -148,7 +148,9 @@
 
     <script>
   document.getElementById("form").addEventListener("submit", function (e) {
-  e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); // Prevent the default form submission
+  if (this.submitting) return; // Prevent multiple submissions
+  this.submitting = true;
   document.getElementById("message").textContent = "Submitting..";
   document.getElementById("message").style.display = "block";
   document.getElementById("submit-button").disabled = true;
