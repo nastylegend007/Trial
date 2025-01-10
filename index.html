@@ -161,6 +161,11 @@
 const { jsPDF } = window.jspdf;
 const doc = new jsPDF();
 
+// Add a background gradient
+doc.setFillColor(200, 230, 255); // Light blue
+doc.rect(0, 0, 210, 297, 'F'); // Fill the entire page (A4 size in mm)
+
+
 // Collect form data
 var formData = new FormData(document.getElementById("form"));
 var item1 = document.getElementById("item1").value;
@@ -170,7 +175,15 @@ var quantity2 = document.getElementById("quantity2").value;
 var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
 var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 
-doc.text("Invoice", 14, 10);
+doc.setFontSize(12);
+   
+doc.setFont("helvetica", "normal");
+doc.text("Client Name:", 20, 40);
+doc.setFont("helvetica", "bold");
+     doc.setDrawColor(0, 0, 0); // Black
+doc.setLineWidth(0.5); // Thin line
+doc.line(10, 25, 200, 25); // Horizontal line
+    doc.text("Invoice", 14, 10);
 doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
 doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
 doc.text(`Phone: ${phoneNumber}`, 14, 40);
