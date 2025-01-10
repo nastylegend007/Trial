@@ -157,48 +157,45 @@
   document.getElementById("message").style.display = "block";
   document.getElementById("submit-button").disabled = true;
 
-   // Include jsPDF library
-const { jsPDF } = window.jspdf;
+// Include jsPDF library
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-// Create PDF instance
-const doc = new jsPDF();
+    // Load the background image
+    const imgUrl = "invoice.png"; // Image path from root folder
+    const image = new Image();
+    image.onload = function() {
+      const imgWidth = 210;  // A4 width (in mm)
+      const imgHeight = 297; // A4 height (in mm)
 
-// Load a background image (e.g., a professional invoice template)
-// You can either use a URL or a Base64 image
+      // Add background image to PDF
+      doc.addImage(image, "PNG", 0, 0, imgWidth, imgHeight); 
 
-      const imgUrl = "invoice.png"; // Image path from root folder
+      // Collect form data and order details
+      var item1 = document.getElementById("item1").value;
+      var quantity1 = document.getElementById("quantity1").value;
+      var item2 = document.getElementById("item2").value;
+      var quantity2 = document.getElementById("quantity2").value;
+      var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
+      var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 
-      // Fetch the image and convert it to Base64
-      const image = new Image();
-      image.onload = function() 
-const imgWidth = 210;  // A4 width (in mm)
-const imgHeight = 297; // A4 height (in mm)
+      // Overlay text on the background
+      doc.setFontSize(12);
+      doc.text(`Client Name: ${formData.get("Client Name")}`, 50, 60); 
+      doc.text(`Last Name: ${formData.get("Last Name")}`, 50, 70);
+      doc.text(`Phone: ${phoneNumber}`, 50, 80);
+      doc.text(`Email: ${formData.get("Email")}`, 50, 90);
+      doc.text(`Item 1: $${item1} x ${quantity1}`, 50, 110);
+      doc.text(`Item 2: $${item2} x ${quantity2}`, 50, 120);
+      doc.text(`Total Amount: $${totalAmount}`, 50, 130);
 
-// Add background image to PDF
-doc.addImage(img, "PNG", 0, 0, imgWidth, imgHeight); // Adds image as background (covering the whole page)
+      // Save the PDF automatically
+      doc.save('invoice.pdf');
+    };
 
-// Collect form data (your form input values)
-var formData = new FormData(document.getElementById("form"));
-var item1 = document.getElementById("item1").value;
-var quantity1 = document.getElementById("quantity1").value;
-var item2 = document.getElementById("item2").value;
-var quantity2 = document.getElementById("quantity2").value;
-var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
-var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
-
-// Overlay text on the background (positions are based on the image size)
-doc.setFontSize(12);
-doc.text(`Client Name: ${formData.get("Client Name")}`, 50, 60); // Adjust (x, y) as needed
-doc.text(`Last Name: ${formData.get("Last Name")}`, 50, 70);
-doc.text(`Phone: ${phoneNumber}`, 50, 80);
-doc.text(`Email: ${formData.get("Email")}`, 50, 90);
-doc.text(`Item 1: $${item1} x ${quantity1}`, 50, 110);
-doc.text(`Item 2: $${item2} x ${quantity2}`, 50, 120);
-doc.text(`Total Amount: $${totalAmount}`, 50, 130);
-
-// Save the PDF automatically
-doc.save('invoice.pdf');
-
+    // Set the image source to the file path in the root folder
+    image.src = imgUrl;
+  });
 
   // Collect the form data
   var formData = new FormData(this);
