@@ -197,28 +197,7 @@ var quantity2 = document.getElementById("quantity2").value;
 var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
 var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 
-doc.text("Invoice", 14, 10);
-doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
-doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
-doc.text(`Phone: ${phoneNumber}`, 14, 40);
-doc.text(`Email: ${formData.get("Email")}`, 14, 50);
-let yPosition = 60; // Initial vertical position for items
 
-if (item1 > 0 && quantity1 > 0) {
-  const item1Total = item1 * quantity1;
-  doc.text(`Grilled Chicken - $${item1} x ${quantity1} = $${item1Total}`, 14, 60);
-}
-
-if (item2 > 0 && quantity2 > 0) {
-  const item2Total = item2 * quantity2;
-  doc.text(`Salad Bowl - $${item2} x ${quantity2} = $${item2Total}`, 14, 70);
-}
-
-
-doc.text(`Total Amount: $${totalAmount}`, 14, 80);
-
-// Save the PDF automatically
-doc.save('invoice.pdf');
 
   // Collect the form data
   var formData = new FormData(this);
