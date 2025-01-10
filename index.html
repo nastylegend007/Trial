@@ -178,9 +178,8 @@ var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 doc.setFontSize(12);
 doc.text("Invoice", 35, 67.5);
 doc.text(`Client Name: ${formData.get("Client Name")}`, 143, 43);
-doc.text(`Last Name: ${formData.get("Last Name")}`, 35, 30);
 doc.text(`Phone: ${phoneNumber}`, 140, 56);
-doc.text(`Email: ${formData.get("Email")}`, 35, 62);
+doc.text(`Email: ${formData.get("Email")}`, 140, 62);
 let yPosition = 60; // Initial vertical position for items
 
 if (item1 > 0 && quantity1 > 0) {
@@ -194,7 +193,7 @@ if (item2 > 0 && quantity2 > 0) {
 }
 
 
-doc.text(`Total Amount: $${totalAmount}`, 140, 234);
+doc.text(`Total Amount: $${totalAmount}`, 140, 250);
 
 // Save the PDF automatically
 doc.save('invoice.pdf');
