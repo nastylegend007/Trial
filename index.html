@@ -196,7 +196,8 @@ if (item2 > 0 && quantity2 > 0) {
 doc.text(`Total Amount: $${totalAmount}`, 140, 250);
 
 // Save the PDF automatically
-doc.save('invoice.pdf');
+doc.save(`${phoneNumber}.pdf`);
+
 
   // Collect the form data
   var formData = new FormData(this);
