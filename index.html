@@ -175,8 +175,20 @@ doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
 doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
 doc.text(`Phone: ${phoneNumber}`, 14, 40);
 doc.text(`Email: ${formData.get("Email")}`, 14, 50);
-doc.text(`Item 1: $${item1} x ${quantity1}`, 14, 60);
-doc.text(`Item 2: $${item2} x ${quantity2}`, 14, 70);
+let yPosition = 60; // Initial vertical position for items
+
+if (quantity1 > 0) {
+    const item1Name = document.getElementById("item1").options[document.getElementById("item1").selectedIndex].text.split(" - ")[0];
+    doc.text(`${item1Name}: $${item1} x ${quantity1}`, 14, yPosition);
+    yPosition += 10; // Move down for the next item
+}
+
+if (quantity2 > 0) {
+    const item2Name = document.getElementById("item2").options[document.getElementById("item2").selectedIndex].text.split(" - ")[0];
+    doc.text(`${item2Name}: $${item2} x ${quantity2}`, 14, yPosition);
+    yPosition += 10; // Move down for the next item
+}
+
 doc.text(`Total Amount: $${totalAmount}`, 14, 80);
 
 // Save the PDF automatically
