@@ -134,65 +134,78 @@
     ></div>
 
     <script>
-      document.getElementById("form").addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent the default form submission
-        document.getElementById("message").textContent = "Submitting..";
-        document.getElementById("message").style.display = "block";
-        document.getElementById("submit-button").disabled = true;
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission
+    document.getElementById("message").textContent = "Submitting..";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("submit-button").disabled = true;
 
-        // Collect the form data
-        var formData = new FormData(this);
-        var keyValuePairs = [];
-        for (var pair of formData.entries()) {
-          keyValuePairs.push(pair[0] + "=" + pair[1]);
+    // Collect the form data
+    var formData = new FormData(this);
+
+    // Add ordered items and total amount to the form data
+    var item1 = document.getElementById("item1").value;
+    var quantity1 = document.getElementById("quantity1").value;
+    var item2 = document.getElementById("item2").value;
+    var quantity2 = document.getElementById("quantity2").value;
+    var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
+
+    formData.append("Item1", `Item 1: $${item1} x ${quantity1}`);
+    formData.append("Item2", `Item 2: $${item2} x ${quantity2}`);
+    formData.append("Total Amount", totalAmount);
+
+    var keyValuePairs = [];
+    for (var pair of formData.entries()) {
+      keyValuePairs.push(pair[0] + "=" + pair[1]);
+    }
+
+    var formDataString = keyValuePairs.join("&");
+
+    // Send a POST request to your Google Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxNLDKTW1PTT2OfLNEQ0QoEDwmv4c5TJKb70J3h-NrYAWeW7WzTtMX1OMLw4DCU3B_e_A/exec",
+      {
+        redirect: "follow",
+        method: "POST",
+        body: formDataString,
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      }
+    )
+      .then(function (response) {
+        // Check if the request was successful
+        if (response) {
+          return response; // Assuming your script returns JSON response
+        } else {
+          throw new Error("Failed to submit the form.");
         }
+      })
+      .then(function (data) {
+        // Display a success message
+        document.getElementById("message").textContent =
+          "Data submitted successfully!";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").style.backgroundColor = "green";
+        document.getElementById("message").style.color = "beige";
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("form").reset();
 
-        var formDataString = keyValuePairs.join("&");
-
-        // Send a POST request to your Google Apps Script
-        fetch(
-          "https://script.google.com/macros/s/AKfycbxNLDKTW1PTT2OfLNEQ0QoEDwmv4c5TJKb70J3h-NrYAWeW7WzTtMX1OMLw4DCU3B_e_A/exec",
-          {
-            redirect: "follow",
-            method: "POST",
-            body: formDataString,
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8",
-            },
-          }
-        )
-          .then(function (response) {
-            // Check if the request was successful
-            if (response) {
-              return response; // Assuming your script returns JSON response
-            } else {
-              throw new Error("Failed to submit the form.");
-            }
-          })
-          .then(function (data) {
-            // Display a success message
-            document.getElementById("message").textContent =
-              "Data submitted successfully!";
-            document.getElementById("message").style.display = "block";
-            document.getElementById("message").style.backgroundColor = "green";
-            document.getElementById("message").style.color = "beige";
-            document.getElementById("submit-button").disabled = false;
-            document.getElementById("form").reset();
-
-            setTimeout(function () {
-              document.getElementById("message").textContent = "";
-              document.getElementById("message").style.display = "none";
-            }, 2600);
-          })
-          .catch(function (error) {
-            // Handle errors, you can display an error message here
-            console.error(error);
-            document.getElementById("message").textContent =
-              "An error occurred while submitting the form.";
-            document.getElementById("message").style.display = "block";
-          });
+        setTimeout(function () {
+          document.getElementById("message").textContent = "";
+          document.getElementById("message").style.display = "none";
+        }, 2600);
+      })
+      .catch(function (error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        document.getElementById("message").textContent =
+          "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
       });
-    </script>
+  });
+</script>
+
     <div class="order-section">
         <h1>Order Your Meal</h1>
 
