@@ -162,7 +162,7 @@
     const doc = new jsPDF();
 
     // Load the background image
-    const imgUrl = "invoice.png"; // Image path from root folder
+    const imgUrl = "./invoice.png"; // Image path from root folder
     const image = new Image();
     image.onload = function() {
       const imgWidth = 210;  // A4 width (in mm)
@@ -196,6 +196,15 @@
     // Set the image source to the file path in the root folder
     image.src = imgUrl;
   });
+const image = new Image();
+image.onload = function () {
+    console.log("Image loaded successfully");
+    // Your existing code...
+};
+image.onerror = function () {
+    console.error("Failed to load image");
+};
+image.src = imgUrl;
 
   // Collect the form data
   var formData = new FormData(this);
