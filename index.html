@@ -5,6 +5,8 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   </head>
   <body>
     <section class="hero is-primary is-bold">
@@ -154,6 +156,22 @@
   document.getElementById("message").textContent = "Submitting..";
   document.getElementById("message").style.display = "block";
   document.getElementById("submit-button").disabled = true;
+
+    // Create PDF invoice using jsPDF
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.text("Invoice", 14, 10);
+  doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
+  doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
+  doc.text(`Phone: ${phoneNumber}`, 14, 40);
+  doc.text(`Email: ${formData.get("Email")}`, 14, 50);
+  doc.text(`Item 1: $${item1} x ${quantity1}`, 14, 60);
+  doc.text(`Item 2: $${item2} x ${quantity2}`, 14, 70);
+  doc.text(`Total Amount: $${totalAmount}`, 14, 80);
+
+  // Save the PDF automatically
+  doc.save('invoice.pdf');
 
   // Collect the form data
   var formData = new FormData(this);
