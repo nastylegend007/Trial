@@ -150,39 +150,59 @@
 
     <script>
   document.getElementById("form").addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent the default form submission
+  e.preventDefault(); // Prevent default form submission
   if (this.submitting) return; // Prevent multiple submissions
   this.submitting = true;
+
   document.getElementById("message").textContent = "Submitting..";
   document.getElementById("message").style.display = "block";
   document.getElementById("submit-button").disabled = true;
 
-   // Create PDF invoice using jsPDF
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-// Collect form data
-var formData = new FormData(document.getElementById("form"));
-var item1 = document.getElementById("item1").value;
-var quantity1 = document.getElementById("quantity1").value;
-var item2 = document.getElementById("item2").value;
-var quantity2 = document.getElementById("quantity2").value;
-var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
-var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
+  // Load the image and use it as a background
+  const img = new Image();
+  img.src = "invoice.png"; // Ensure the file path is correct
 
-doc.text("Invoice", 14, 10);
-doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
-doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
-doc.text(`Phone: ${phoneNumber}`, 14, 40);
-doc.text(`Email: ${formData.get("Email")}`, 14, 50);
-doc.text(`Item 1: $${item1} x ${quantity1}`, 14, 60);
-doc.text(`Item 2: $${item2} x ${quantity2}`, 14, 70);
-doc.text(`Total Amount: $${totalAmount}`, 14, 80);
+  img.onload = function () {
+    doc.addImage(img, "PNG", 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
 
-// Save the PDF automatically
-doc.save('invoice.pdf');
+    // Collect form data
+    var formData = new FormData(document.getElementById("form"));
+    doc.text("Invoice", 14, 10);
+    doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
+    doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
+    doc.text(`Phone: ${formData.get("Phone Number")}`, 14, 40);
+    doc.text(`Email: ${formData.get("Email")}`, 14, 50);
 
-  doc.save('invoice.pdf');
+    // Include order details
+    var item1 = document.getElementById("item1").value;
+    var quantity1 = document.getElementById("quantity1").value;
+    var item2 = document.getElementById("item2").value;
+    var quantity2 = document.getElementById("quantity2").value;
+    var totalAmount = document.getElementById("total").textContent.slice(1);
+
+    doc.text(`Item 1: $${item1} x ${quantity1}`, 14, 60);
+    doc.text(`Item 2: $${item2} x ${quantity2}`, 14, 70);
+    doc.text(`Total Amount: $${totalAmount}`, 14, 80);
+
+    // Save the PDF
+    doc.save("invoice.pdf");
+
+    document.getElementById("message").textContent = "Invoice generated successfully!";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("submit-button").disabled = false;
+  };
+
+  img.onerror = function () {
+    console.error("Error loading the image.");
+    document.getElementById("message").textContent = "Failed to load the background image.";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("submit-button").disabled = false;
+  };
+});
+
 
   // Collect the form data
   var formData = new FormData(this);
