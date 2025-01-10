@@ -193,5 +193,43 @@
           });
       });
     </script>
+    <div class="order-section">
+        <h1>Order Your Meal</h1>
+
+        <label for="item">Select Item:</label>
+        <select id="item" onchange="updateTotal()">
+            <option value="0">-- Select an Item --</option>
+            <option value="100">Grilled Chicken - Rs.100</option>
+            <option value="50">Salad Bowl - Rs.50</option>
+            <option value="30">Fruit Smoothie - Rs.30</option>
+            <option value="20">Protein Bar - Rs.20</option>
+        </select>
+
+        <label for="quantity">Select Quantity:</label>
+        <select id="quantity" onchange="updateTotal()">
+            <option value="0">-- Select Quantity --</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <p>Total Amount: <span id="total">$0</span></p>
+    </div>
+
+    <script>
+        function updateTotal() {
+            const itemPrice = parseFloat(document.getElementById("item").value);
+            const quantity = parseInt(document.getElementById("quantity").value);
+
+            if (!isNaN(itemPrice) && !isNaN(quantity)) {
+                const totalAmount = itemPrice * quantity;
+                document.getElementById("total").textContent = `$${totalAmount}`;
+            } else {
+                document.getElementById("total").textContent = "$0";
+            }
+        }
+    </script>
   </body>
 </html>
