@@ -40,6 +40,29 @@
                 <option value="5">5</option>
             </select>
         </div>
+           <div class="item-row">
+            <label for="item2">Select Item 2:</label>
+            <select id="item2" onchange="updateTotal()">
+                <option value="0">-- Select an Item --</option>
+                <option value="100">Grilled Chicken - $100</option>
+                <option value="50">Salad Bowl - $50</option>
+                <option value="30">Fruit Smoothie - $30</option>
+                <option value="20">Protein Bar - $20</option>
+            </select>
+
+            <label for="quantity2">Select Quantity:</label>
+            <select id="quantity2" onchange="updateTotal()">
+                <option value="0">-- Select Quantity --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <p>Total Amount: <span id="total">$0</span></p>
+    </div>
       <div class="field">
         <label class="label">Client Name</label>
         <div class="control">
@@ -265,29 +288,7 @@ if (quantity2 > 0) {
 
     
 
-        <div class="item-row">
-            <label for="item2">Select Item 2:</label>
-            <select id="item2" onchange="updateTotal()">
-                <option value="0">-- Select an Item --</option>
-                <option value="100">Grilled Chicken - $100</option>
-                <option value="50">Salad Bowl - $50</option>
-                <option value="30">Fruit Smoothie - $30</option>
-                <option value="20">Protein Bar - $20</option>
-            </select>
-
-            <label for="quantity2">Select Quantity:</label>
-            <select id="quantity2" onchange="updateTotal()">
-                <option value="0">-- Select Quantity --</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-
-        <p>Total Amount: <span id="total">$0</span></p>
-    </div>
+     
 
     <script>
         function updateTotal() {
