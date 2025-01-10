@@ -161,33 +161,6 @@
 const { jsPDF } = window.jspdf;
 const doc = new jsPDF();
 
-// Add a background image
-const img = new Image();
-img.src = 'https://img.freepik.com/free-vector/digital-technology-polygon-connection-background_1035-17976.jpg?t=st=1736534044~exp=1736537644~hmac=8b05cacf1faf84aad7bf5c04b4a61e5f1d4c2018aea543c6d155b720bc3b50c6&w=2000'; // Replace with your background image URL or data URL
-
-img.onload = function () {
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-
-  // Add the image to cover the entire page
-  doc.addImage(img, 'JPEG', 0, 0, pageWidth, pageHeight);
-
-  // Add the rest of the text on top of the background
-  doc.setTextColor(0, 0, 0); // Set text color (black)
-  doc.setFontSize(12); // Set font size
-  doc.text("Invoice", 14, 10);
-  doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
-  doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
-  doc.text(`Phone: ${phoneNumber}`, 14, 40);
-  doc.text(`Email: ${formData.get("Email")}`, 14, 50);
-  doc.text(`Item 1: $${item1} x ${quantity1}`, 14, 60);
-  doc.text(`Item 2: $${item2} x ${quantity2}`, 14, 70);
-  doc.text(`Total Amount: $${totalAmount}`, 14, 80);
-
-  // Save the PDF
-  doc.save('invoice.pdf');
-};
-
 // Collect form data
 var formData = new FormData(document.getElementById("form"));
 var item1 = document.getElementById("item1").value;
@@ -197,7 +170,28 @@ var quantity2 = document.getElementById("quantity2").value;
 var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
 var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 
+doc.text("Invoice", 14, 10);
+doc.text(`Client Name: ${formData.get("Client Name")}`, 14, 20);
+doc.text(`Last Name: ${formData.get("Last Name")}`, 14, 30);
+doc.text(`Phone: ${phoneNumber}`, 14, 40);
+doc.text(`Email: ${formData.get("Email")}`, 14, 50);
+let yPosition = 60; // Initial vertical position for items
 
+if (item1 > 0 && quantity1 > 0) {
+  const item1Total = item1 * quantity1;
+  doc.text(`Grilled Chicken - $${item1} x ${quantity1} = $${item1Total}`, 14, 60);
+}
+
+if (item2 > 0 && quantity2 > 0) {
+  const item2Total = item2 * quantity2;
+  doc.text(`Salad Bowl - $${item2} x ${quantity2} = $${item2Total}`, 14, 70);
+}
+
+
+doc.text(`Total Amount: $${totalAmount}`, 14, 80);
+
+// Save the PDF automatically
+doc.save('invoice.pdf');
 
   // Collect the form data
   var formData = new FormData(this);
