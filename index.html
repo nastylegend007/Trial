@@ -196,39 +196,70 @@
     <div class="order-section">
         <h1>Order Your Meal</h1>
 
-        <label for="item">Select Item:</label>
-        <select id="item" onchange="updateTotal()">
-            <option value="0">-- Select an Item --</option>
-            <option value="100">Grilled Chicken - Rs.100</option>
-            <option value="50">Salad Bowl - Rs.50</option>
-            <option value="30">Fruit Smoothie - Rs.30</option>
-            <option value="20">Protein Bar - Rs.20</option>
-        </select>
+        <div class="item-row">
+            <label for="item1">Select Item 1:</label>
+            <select id="item1" onchange="updateTotal()">
+                <option value="0">-- Select an Item --</option>
+                <option value="100">Grilled Chicken - $100</option>
+                <option value="50">Salad Bowl - $50</option>
+                <option value="30">Fruit Smoothie - $30</option>
+                <option value="20">Protein Bar - $20</option>
+            </select>
 
-        <label for="quantity">Select Quantity:</label>
-        <select id="quantity" onchange="updateTotal()">
-            <option value="0">-- Select Quantity --</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
+            <label for="quantity1">Select Quantity:</label>
+            <select id="quantity1" onchange="updateTotal()">
+                <option value="0">-- Select Quantity --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="item-row">
+            <label for="item2">Select Item 2:</label>
+            <select id="item2" onchange="updateTotal()">
+                <option value="0">-- Select an Item --</option>
+                <option value="100">Grilled Chicken - $100</option>
+                <option value="50">Salad Bowl - $50</option>
+                <option value="30">Fruit Smoothie - $30</option>
+                <option value="20">Protein Bar - $20</option>
+            </select>
+
+            <label for="quantity2">Select Quantity:</label>
+            <select id="quantity2" onchange="updateTotal()">
+                <option value="0">-- Select Quantity --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
 
         <p>Total Amount: <span id="total">$0</span></p>
     </div>
 
     <script>
         function updateTotal() {
-            const itemPrice = parseFloat(document.getElementById("item").value);
-            const quantity = parseInt(document.getElementById("quantity").value);
+            const item1Price = parseFloat(document.getElementById("item1").value);
+            const quantity1 = parseInt(document.getElementById("quantity1").value);
 
-            if (!isNaN(itemPrice) && !isNaN(quantity)) {
-                const totalAmount = itemPrice * quantity;
-                document.getElementById("total").textContent = `$${totalAmount}`;
-            } else {
-                document.getElementById("total").textContent = "$0";
+            const item2Price = parseFloat(document.getElementById("item2").value);
+            const quantity2 = parseInt(document.getElementById("quantity2").value);
+
+            let totalAmount = 0;
+
+            if (!isNaN(item1Price) && !isNaN(quantity1)) {
+                totalAmount += item1Price * quantity1;
             }
+
+            if (!isNaN(item2Price) && !isNaN(quantity2)) {
+                totalAmount += item2Price * quantity2;
+            }
+
+            document.getElementById("total").textContent = `$${totalAmount}`;
         }
     </script>
   </body>
