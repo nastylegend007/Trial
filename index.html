@@ -177,17 +177,16 @@ doc.text(`Phone: ${phoneNumber}`, 14, 40);
 doc.text(`Email: ${formData.get("Email")}`, 14, 50);
 let yPosition = 60; // Initial vertical position for items
 
-if (quantity1 > 0) {
-    const item1Name = document.getElementById("item1").options[document.getElementById("item1").selectedIndex].text.split(" - ")[0];
-    doc.text(`${item1Name}: $${item1} x ${quantity1}`, 14, yPosition);
-    yPosition += 10; // Move down for the next item
+if (item1 > 0 && quantity1 > 0) {
+  const item1Total = item1 * quantity1;
+  doc.text(`Grilled Chicken - $${item1} x ${quantity1} = $${item1Total}`, 14, 60);
 }
 
-if (quantity2 > 0) {
-    const item2Name = document.getElementById("item2").options[document.getElementById("item2").selectedIndex].text.split(" - ")[0];
-    doc.text(`${item2Name}: $${item2} x ${quantity2}`, 14, yPosition);
-    yPosition += 10; // Move down for the next item
+if (item2 > 0 && quantity2 > 0) {
+  const item2Total = item2 * quantity2;
+  doc.text(`Salad Bowl - $${item2} x ${quantity2} = $${item2Total}`, 14, 70);
 }
+
 
 doc.text(`Total Amount: $${totalAmount}`, 14, 80);
 
