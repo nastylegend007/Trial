@@ -193,8 +193,16 @@ doc.save('invoice.pdf');
   var totalAmount = document.getElementById("total").textContent.slice(1); // Remove '$' symbol
   var phoneNumber = formData.get('Phone Number'); // Retrieve phone number
 
-  formData.append("Item1", `Item 1: $${item1} x ${quantity1}`);
-  formData.append("Item2", `Item 2: $${item2} x ${quantity2}`);
+  if (quantity1 > 0) {
+    const item1Name = document.getElementById("item1").options[document.getElementById("item1").selectedIndex].text.split(" - ")[0];
+    formData.append("Item1", `${item1Name}: $${item1} x ${quantity1}`);
+}
+
+if (quantity2 > 0) {
+    const item2Name = document.getElementById("item2").options[document.getElementById("item2").selectedIndex].text.split(" - ")[0];
+    formData.append("Item2", `${item2Name}: $${item2} x ${quantity2}`);
+}
+
   formData.append("Total Amount", totalAmount);
 
   var keyValuePairs = [];
