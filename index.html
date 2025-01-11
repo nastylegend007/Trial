@@ -9,18 +9,7 @@
 
   </head>
   <body>
-    <div id="loginModal" class="modal is-active">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <div class="box">
-            <h1 class="title">Enter PIN</h1>
-            <input id="pinInput" class="input" type="password" placeholder="Enter PIN" />
-            <button id="loginButton" class="button is-primary mt-2">Submit</button>
-            <p id="pinError" style="color: red; display: none;">Incorrect PIN. Please try again.</p>
-        </div>
-    </div>
-</div>
-
+    
     <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
@@ -29,7 +18,7 @@
       </div>
     </section>
   
-      <form id="form" class="container m-4 pl-4" method="POST" style="display: none;">
+      <form id="form" class="container m-4 pl-4" method="POST">
 
       <div class="order-section">
         <h1>Order Your Meal</h1>
@@ -323,26 +312,7 @@ if (quantity2 > 0) {
 
             document.getElementById("total").textContent = `$${totalAmount}`;
         }
-      // here start
-      document.getElementById("loginButton").addEventListener("click", function () {
-    const pin = "3437"; // Set your desired PIN here
-    const enteredPin = document.getElementById("pinInput").value;
-
-    if (enteredPin === pin) {
-        document.getElementById("loginModal").classList.remove("is-active");
-    } else {
-        document.getElementById("pinError").style.display = "block";
-    }
-});
-
-// Prevent form interaction until PIN is entered
-document.getElementById("form").style.display = "none";
-document.getElementById("loginModal").addEventListener("transitionend", () => {
-    if (!document.getElementById("loginModal").classList.contains("is-active")) {
-        document.getElementById("form").style.display = "block";
-    }
-});
-// here ends
+     
     </script>
   </body>
 </html>
